@@ -81,13 +81,17 @@ public class WizardController {
                 if (method != null) {
                     try {
                         courses = (List<Course>) method.invoke(wizard);
-                        courses.add(course);
+// Test FOR pour perf (delete insert hibernate)
+//                        for (int i = 0; i < 10000 ; i++) {
+                            courses.add(course);
+//                        }
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
                 }
 
-                wizardRepository.save(wizard);
+
+                wizardRepository.saveAndFlush(wizard);
             }
         }
 
